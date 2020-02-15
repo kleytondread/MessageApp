@@ -32,7 +32,7 @@ public class ModelMapperComponent {
                     	map().setUserName(source.getUserName());
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
-                    	when(Conditions.isNotNull()).using(ModelConverter.convertStatus).map(source.isStatus()).setStatus(null);
+                    	when(Conditions.isNotNull()).using(ModelConverter.convertStatus).map(source.isStatus()).setStatus(null); //pedir a anderson pra ele explicar essa sentença
                     	map().getUserProfileDto().setId(source.getUserProfile().getId());
                     	map().getUserProfileDto().setAddress1(source.getUserProfile().getAddress1());
                     	map().getUserProfileDto().setAddress2(source.getUserProfile().getAddress2());
