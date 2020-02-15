@@ -1,7 +1,10 @@
 package dto;
 
 import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
 	private Long userId;
@@ -10,7 +13,7 @@ public class UserDto {
 	private String lastName;
 	private String email;
 	private String password;
-	private boolean status;
+	private String status;
 	private ArrayList<ContactDto> contacts;
 	private UserProfileDto userProfileDto;
 	
@@ -76,11 +79,11 @@ public class UserDto {
 		this.password = password;
 	}
 
-	public boolean getStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

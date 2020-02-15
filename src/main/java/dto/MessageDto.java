@@ -1,11 +1,12 @@
 package dto;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class MessageDto {
 	
-private Long messageId;
-	
+	private Long messageId;
 	private UserDto sender;
 	private UserDto recipient;
 	private String text;

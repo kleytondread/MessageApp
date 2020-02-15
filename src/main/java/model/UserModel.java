@@ -116,7 +116,7 @@ public class UserModel implements Serializable{
 		this.password = password;
 	}
 
-	public boolean getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 
