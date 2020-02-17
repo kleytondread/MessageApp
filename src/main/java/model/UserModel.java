@@ -42,7 +42,7 @@ public class UserModel implements Serializable{
 	private String password;
 	
 	@NotNull
-	private boolean status;
+	private Boolean status;
 	
 	@OneToMany (fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
@@ -116,11 +116,11 @@ public class UserModel implements Serializable{
 		this.password = password;
 	}
 
-	public boolean isStatus() {
+	public Boolean isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 

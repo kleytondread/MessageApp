@@ -14,16 +14,12 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long messageId;
 	
-	@NotNull
-	@OneToOne (fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			mappedBy = "user")
+	@OneToOne (fetch = FetchType.LAZY,optional = false)
+	@JoinColumn (name = "sender_user_id", nullable = false)
 	private UserModel sender;
 	
-	@NotNull
-	@OneToOne (fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			mappedBy = "user")
+	@OneToOne (fetch = FetchType.LAZY,optional = false)
+	@JoinColumn (name = "recipient_user_id", nullable = false)
 	private UserModel recipient;
 	
 	@NotNull
@@ -64,6 +60,12 @@ public class Message {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public Date getMessageDate() {
+		return messageDate;
+	}
+	public void setMessageDate(Date messageDate) {
+		this.messageDate = messageDate;
 	}
 
 }
