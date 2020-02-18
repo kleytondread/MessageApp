@@ -1,24 +1,63 @@
-package dto;
+package com.pitang.sms.model;
 
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ContactDto {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table (name = "contact")
+public class Contact{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotNull
+	@Size (max = 65)
+	@Column (name = "first_name")
 	private String firstName;
+	
+	@Size (max = 65)
+	@Column (name = "last_name")
 	private String lastName;
+	
+	@Size (max = 15)
 	private String telephone1;
+	
+	@Size (max = 15)
 	private String telephone2;
+	
+	@Size (max = 150)
 	private String address1;
+	
+	@Size (max = 150)
 	private String address2;
+	
+	@Size (max = 65)
 	private String city;
+	
+	@Size (max = 65)
 	private String country;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name = "date_of_bith")
     private Date dateOfBirth;
-	private UserDto user;
+	
+	@ManyToOne (fetch = FetchType.LAZY)
+	private UserModel user;
 	
 	
-	public ContactDto() {
+	public Contact() {
 		
 	}
 
@@ -102,11 +141,12 @@ public class ContactDto {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public UserDto getUserDto() {
+	public UserModel getUserModel() {
 		return user;
 	}
 
-	public void setUserDto(UserDto user) {
+	public void setUserModel(UserModel user) {
 		this.user = user;
 	}
+	
 }

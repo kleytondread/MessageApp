@@ -1,4 +1,4 @@
-package model;
+package com.pitang.sms.model;
 
 import java.util.Date;
 

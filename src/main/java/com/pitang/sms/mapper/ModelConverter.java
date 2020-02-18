@@ -1,4 +1,4 @@
-package mapper;
+package com.pitang.sms.mapper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

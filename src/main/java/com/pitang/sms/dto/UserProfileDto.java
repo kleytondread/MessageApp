@@ -1,64 +1,37 @@
-package model;
+package com.pitang.sms.dto;
 
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-@Entity
-@Table (name = "contact")
-public class Contact{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class UserProfileDto {
+	
 	private Long id;
-	
-	@NotNull
-	@Size (max = 65)
-	@Column (name = "first_name")
 	private String firstName;
-	
-	@Size (max = 65)
-	@Column (name = "last_name")
 	private String lastName;
-	
-	@Size (max = 15)
 	private String telephone1;
-	
-	@Size (max = 15)
 	private String telephone2;
-	
-	@Size (max = 150)
 	private String address1;
-	
-	@Size (max = 150)
 	private String address2;
-	
-	@Size (max = 65)
 	private String city;
-	
-	@Size (max = 65)
 	private String country;
-	
-	@Temporal(TemporalType.DATE)
-    @Column(name = "date_of_bith")
     private Date dateOfBirth;
+	private UserDto userModel;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
-	private UserModel user;
-	
-	
-	public Contact() {
-		
+	public UserProfileDto(Long id, String firstName, String lastName, String telephone1, String telephone2,
+			String address1, String address2, String city, String country, Date dateOfBirth, UserDto userModel) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.telephone1 = telephone1;
+		this.telephone2 = telephone2;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.country = country;
+		this.dateOfBirth = dateOfBirth;
+		this.userModel = userModel;
 	}
 
 	public Long getId() {
@@ -141,12 +114,13 @@ public class Contact{
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public UserModel getUserModel() {
-		return user;
+	public UserDto getUserModel() {
+		return userModel;
 	}
 
-	public void setUserModel(UserModel user) {
-		this.user = user;
+	public void setUserModel(UserDto userModel) {
+		this.userModel = userModel;
 	}
 	
+
 }

@@ -1,4 +1,4 @@
-package dto;
+package com.pitang.sms.dto;
 
 import java.util.ArrayList;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,4 +1,4 @@
-package controller;
+package com.pitang.sms.controller;
 
 import java.util.List;
 

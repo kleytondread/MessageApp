@@ -1,4 +1,4 @@
-package exceptions;
+package com.pitang.sms.exceptions;
 
 public class Message {
     private String messagem;
