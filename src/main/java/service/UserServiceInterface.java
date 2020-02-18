@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Contact;
@@ -25,5 +26,9 @@ public interface UserServiceInterface {
 	public void updateUserProfile(UserModel user);
 
 	public void addSingleContact(Contact contact, UserModel user);
+
+	public void addContactsList(ArrayList<Contact> contacts, UserModel user);
+
+	void updateContact(Contact contact);
 }
 

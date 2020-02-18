@@ -1,20 +1,20 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import exceptions.ExceptionBadRequest;
 import exceptions.ExceptionConflict;
-import exceptions.ExceptionNotFound;
 import model.Contact;
 import model.UserModel;
-import model.UserProfile;
+import repository.ContactRepository;
 import repository.UserProfileRepository;
 import repository.UserRepository;
-import repository.ContactRepository;
 
 
 
@@ -134,6 +134,27 @@ public class UserServiceImpl implements UserServiceInterface{
 			user.addSingleContact(contact);
 		else
 			throw new ExceptionBadRequest("Contato não informado.");
+	}
+	
+	@Override
+	public void addContactsList (ArrayList <Contact> contacts, UserModel user) {
+		checkIntegrity(user);
+		if (contacts != null) {
+			user.setContacts(contacts);
+		}
+		else {
+			throw new ExceptionBadRequest("Lista de contatos não informada.");
+		}
+	}
+	
+	@Override
+	public void updateContact (Contact contact) {
+		if (contact != null && contact.getId() !=null) {
+			contactRepository.save(contact);
+		}
+		else {
+			throw new ExceptionBadRequest("O contato não foi informado.");
+		}
 	}
 
 	@Override
