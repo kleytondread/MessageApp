@@ -1,6 +1,5 @@
 package model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "user")
 
-public class UserModel implements Serializable{
+public class UserModel{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
@@ -130,6 +129,10 @@ public class UserModel implements Serializable{
 
 	public void setContacts(ArrayList<Contact> contacts) {
 		this.contacts = contacts;
+	}
+	
+	public void addSingleContact(Contact contact) {
+		contacts.add(contact);
 	}
 
 	public UserProfile getUserProfile() {

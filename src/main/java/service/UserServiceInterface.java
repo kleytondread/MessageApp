@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import model.Contact;
 import model.UserModel;
 
 
@@ -11,10 +12,18 @@ public interface UserServiceInterface {
 
 	public UserModel findUserByUsername(String userName);
 	
+	public UserModel findUserByEmail(String email);
+	
 	public UserModel addUser(UserModel user);
 
-	UserModel updateUser(UserModel user);
+	public UserModel updateUser(UserModel user);
 
-	void deleteUser(Long id);
+	public void deleteUser(Long id);
+
+	public void addUserProfile(UserModel user);
+
+	public void updateUserProfile(UserModel user);
+
+	public void addSingleContact(Contact contact, UserModel user);
 }
 
