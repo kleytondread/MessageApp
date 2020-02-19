@@ -1,7 +1,8 @@
-package repository;
+package com.pitang.sms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import model.Contact;
+
+import com.pitang.sms.model.Contact;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 	

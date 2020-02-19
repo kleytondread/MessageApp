@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.UserDto;
-import mapper.ModelMapperComponent;
-import model.UserModel;
-import service.UserServiceInterface;;
+import com.pitang.sms.dto.UserDto;
+import com.pitang.sms.dto.UserProfileDto;
+import com.pitang.sms.mapper.ModelMapperComponent;
+import com.pitang.sms.model.UserModel;
+import com.pitang.sms.model.UserProfile;
+import com.pitang.sms.service.UserServiceInterface;;
 
 @RestController
 public class UserController {
@@ -77,9 +79,24 @@ public class UserController {
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity <UserDto> addUserProfile (@RequestBody UserDto userDto){
+		
+		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		userService.addUserProfile(userModel);
+		
+		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity<>(userDto, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<UserDto> removeUser(@PathVariable("id") Long id){
+	public ResponseEntity<UserDto> deleteUser(@PathVariable("id") Long id){
 		
 		userService.deleteUser(id);
 		

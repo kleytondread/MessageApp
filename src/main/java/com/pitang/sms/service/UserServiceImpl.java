@@ -1,4 +1,4 @@
-package service;
+package com.pitang.sms.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import exceptions.ExceptionBadRequest;
-import exceptions.ExceptionConflict;
-import model.Contact;
-import model.UserModel;
-import repository.ContactRepository;
-import repository.UserProfileRepository;
-import repository.UserRepository;
+import com.pitang.sms.exceptions.ExceptionBadRequest;
+import com.pitang.sms.exceptions.ExceptionConflict;
+import com.pitang.sms.model.Contact;
+import com.pitang.sms.model.UserModel;
+import com.pitang.sms.repository.ContactRepository;
+import com.pitang.sms.repository.UserProfileRepository;
+import com.pitang.sms.repository.UserRepository;
 
 
 
@@ -118,11 +118,13 @@ public class UserServiceImpl implements UserServiceInterface{
 	
 	@Override
 	public void updateUserProfile (UserModel user) {
+		UserModel userDB = userRepository.getOne(user.getUserId());
 		if(user.getUserProfile()==null) {
 			throw new ExceptionBadRequest("Perfil de usuário não informado.");
 		}
 		else if (user.getUserProfile() !=null && user.getUserProfile().getId() !=null) {
-			userProfileRepository.save(user.getUserProfile());
+			userDB.setUserProfile(user.getUserProfile());
+			userRepository.save(userDB);
 		}
 
 	}

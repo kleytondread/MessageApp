@@ -1,7 +1,7 @@
-package repository;
+package com.pitang.sms.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import model.UserProfile;
+import com.pitang.sms.model.UserProfile;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {	
 	

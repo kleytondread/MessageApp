@@ -1,10 +1,10 @@
-package service;
+package com.pitang.sms.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Contact;
-import model.UserModel;
+import com.pitang.sms.model.Contact;
+import com.pitang.sms.model.UserModel;
 
 
 public interface UserServiceInterface {

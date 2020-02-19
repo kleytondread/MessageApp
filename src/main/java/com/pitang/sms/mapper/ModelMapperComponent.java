@@ -8,14 +8,14 @@ import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
-import dto.ContactDto;
-import dto.MessageDto;
-import dto.UserDto;
-import dto.UserProfileDto;
-import model.Contact;
-import model.Message;
-import model.UserModel;
-import model.UserProfile;
+import com.pitang.sms.dto.ContactDto;
+import com.pitang.sms.dto.MessageDto;
+import com.pitang.sms.dto.UserDto;
+import com.pitang.sms.dto.UserProfileDto;
+import com.pitang.sms.model.Contact;
+import com.pitang.sms.model.Message;
+import com.pitang.sms.model.UserModel;
+import com.pitang.sms.model.UserProfile;
 
 
 @Component
