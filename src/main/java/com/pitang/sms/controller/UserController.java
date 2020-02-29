@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pitang.sms.dto.ContactDto;
 import com.pitang.sms.dto.UserDto;
-import com.pitang.sms.dto.UserProfileDto;
 import com.pitang.sms.mapper.ModelMapperComponent;
+import com.pitang.sms.model.Contact;
 import com.pitang.sms.model.UserModel;
-import com.pitang.sms.model.UserProfile;
 import com.pitang.sms.service.UserServiceInterface;;
 
 @RestController
@@ -63,6 +63,30 @@ public class UserController {
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity <UserDto> findByUsername (@RequestBody String userName) {
+		
+		UserModel userModel = userService.findUserByUsername(userName);
+		
+		UserDto userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity <>(userDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity <UserDto> findByEmail (@RequestBody String email) {
+		
+		UserModel userModel = userService.findUserByUsername(email);
+		
+		UserDto userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity <>(userDto, HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<UserDto> updateUsers(@PathVariable("id") Long id, @RequestBody UserDto userDto){
@@ -92,6 +116,54 @@ public class UserController {
 		ModelMapperComponent.modelMapper.validate();
 		
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity <UserDto> updateUserProfile (@RequestBody UserDto userDto){
+		
+		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		userService.updateUserProfile(userModel);
+		
+		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity <> (userDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity <ContactDto> addSingleContact (@RequestBody ContactDto contactDto, @RequestBody UserDto userDto){ //preciso de dois?
+		
+		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		Contact contact = ModelMapperComponent.modelMapper.map(contactDto, new TypeToken<Contact>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		userService.addSingleContact(contact, userModel);
+		
+		contactDto = ModelMapperComponent.modelMapper.map(contact, new TypeToken<ContactDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity<> (contactDto, HttpStatus.OK); //existe alguma maneira de mandar o userDto tbm, ou não.	
+	}
+	
+	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity <ContactDto> updateContact (@RequestBody ContactDto contactDto){
+		
+		Contact contact = ModelMapperComponent.modelMapper.map(contactDto, new TypeToken<Contact>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		userService.updateContact(contact);
+		
+		contactDto = ModelMapperComponent.modelMapper.map(contact, new TypeToken<ContactDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity<> (contactDto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)

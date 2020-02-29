@@ -139,17 +139,6 @@ public class UserServiceImpl implements UserServiceInterface{
 	}
 	
 	@Override
-	public void addContactsList (ArrayList <Contact> contacts, UserModel user) {
-		checkIntegrity(user);
-		if (contacts != null) {
-			user.setContacts(contacts);
-		}
-		else {
-			throw new ExceptionBadRequest("Lista de contatos não informada.");
-		}
-	}
-	
-	@Override
 	public void updateContact (Contact contact) {
 		if (contact != null && contact.getId() !=null) {
 			contactRepository.save(contact);

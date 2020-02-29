@@ -1,6 +1,5 @@
 package com.pitang.sms.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.pitang.sms.model.Contact;
@@ -26,8 +25,6 @@ public interface UserServiceInterface {
 	public void updateUserProfile(UserModel user);
 
 	public void addSingleContact(Contact contact, UserModel user);
-
-	public void addContactsList(ArrayList<Contact> contacts, UserModel user);
 
 	void updateContact(Contact contact);
 }
