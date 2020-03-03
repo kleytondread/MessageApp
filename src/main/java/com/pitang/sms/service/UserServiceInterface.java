@@ -24,7 +24,7 @@ public interface UserServiceInterface {
 
 	public void updateUserProfile(UserModel user);
 
-	public void addSingleContact(Contact contact, UserModel user);
+	public void addContact(Contact contact, Long id);
 
 	void updateContact(Contact contact);
 }

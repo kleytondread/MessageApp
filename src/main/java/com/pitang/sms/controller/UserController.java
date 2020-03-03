@@ -46,7 +46,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<UserDto> addUsers(@RequestBody UserDto userDto){
+	public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
 		
 		if(userDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -67,6 +67,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity <UserDto> findByUsername (@RequestBody String userName) {
 		
+		if(""==userName || null == userName) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		UserModel userModel = userService.findUserByUsername(userName);
 		
 		UserDto userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
@@ -75,11 +79,15 @@ public class UserController {
 		return new ResponseEntity <>(userDto, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/{email}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity <UserDto> findByEmail (@RequestBody String email) {
 		
-		UserModel userModel = userService.findUserByUsername(email);
+		if(""==email || null == email) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		UserModel userModel = userService.findUserByEmail(email);
 		
 		UserDto userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
@@ -89,8 +97,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<UserDto> updateUsers(@PathVariable("id") Long id, @RequestBody UserDto userDto){
+	public ResponseEntity<UserDto> updateUsers(@RequestBody UserDto userDto){
 		
+		if(userDto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
@@ -107,6 +118,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity <UserDto> addUserProfile (@RequestBody UserDto userDto){
 		
+		if(userDto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
@@ -122,6 +137,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity <UserDto> updateUserProfile (@RequestBody UserDto userDto){
 		
+		if(userDto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
@@ -135,25 +154,30 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity <ContactDto> addSingleContact (@RequestBody ContactDto contactDto, @RequestBody UserDto userDto){ //preciso de dois?
+	public ResponseEntity <ContactDto> addContact (@PathVariable("id") Long id, @RequestBody ContactDto contactDto){ //preciso de dois?
 		
-		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
-		ModelMapperComponent.modelMapper.validate();
+		if(id == null || contactDto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		Contact contact = ModelMapperComponent.modelMapper.map(contactDto, new TypeToken<Contact>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
-		userService.addSingleContact(contact, userModel);
+		userService.addContact(contact, id);
 		
 		contactDto = ModelMapperComponent.modelMapper.map(contact, new TypeToken<ContactDto>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
-		return new ResponseEntity<> (contactDto, HttpStatus.OK); //existe alguma maneira de mandar o userDto tbm, ou não.	
+		return new ResponseEntity<> (contactDto, HttpStatus.OK);	
 	}
 	
 	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity <ContactDto> updateContact (@RequestBody ContactDto contactDto){
+		
+		if(contactDto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		
 		Contact contact = ModelMapperComponent.modelMapper.map(contactDto, new TypeToken<Contact>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();

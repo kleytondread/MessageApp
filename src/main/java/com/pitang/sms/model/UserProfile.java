@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,7 +22,7 @@ import javax.validation.constraints.Size;
 @Table (name = "user_profile")
 public class UserProfile{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
@@ -54,10 +56,9 @@ public class UserProfile{
     @Column(name = "date_of_bith")
     private Date dateOfBirth;
 	
-	@OneToOne (fetch = FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			mappedBy = "user")
-	private UserModel userModel;
+	@OneToOne (fetch = FetchType.LAZY)
+	@MapsId
+	private UserModel user;
 
 	public UserProfile() {
 		
@@ -144,11 +145,11 @@ public class UserProfile{
 	}
 
 	public UserModel getUserModel() {
-		return userModel;
+		return user;
 	}
 
 	public void setUserModel(UserModel userModel) {
-		this.userModel = userModel;
+		this.user = userModel;
 	}
 	
 }

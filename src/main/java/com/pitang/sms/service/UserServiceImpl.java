@@ -130,7 +130,12 @@ public class UserServiceImpl implements UserServiceInterface{
 	}
 	
 	@Override
-	public void addSingleContact (Contact contact, UserModel user) {
+	public void addContact (Contact contact, Long id) {
+		if (id == null) {
+			throw new ExceptionBadRequest("ID do usuário não informado.");
+		}
+		
+		UserModel user = userRepository.findById(id).get();
 		checkIntegrity(user);
 		if(contact !=null)
 			user.addSingleContact(contact);

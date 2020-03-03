@@ -1,6 +1,7 @@
 package com.pitang.sms.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -56,7 +57,7 @@ public class UserModel{
 	@OneToMany (fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			mappedBy = "user")
-	private ArrayList<Contact> contacts;
+	private List<Contact> contacts;
 	
 	@OneToOne (fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
@@ -133,11 +134,11 @@ public class UserModel{
 		this.status = status;
 	}
 
-	public ArrayList<Contact> getContacts() {
+	public List<Contact> getContacts() {
 		return contacts;
 	}
 
-	public void setContacts(ArrayList<Contact> contacts) {
+	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
 	

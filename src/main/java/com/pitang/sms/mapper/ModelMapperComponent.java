@@ -45,8 +45,6 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromDateToString).map(source.getUserProfile().getDateOfBirth()).getUserProfileDto().setDateOfBirth(null);
                     	map().getUserProfileDto().setTelephone1(source.getUserProfile().getTelephone1());
                     	map().getUserProfileDto().setTelephone2(source.getUserProfile().getTelephone2());
-                    	map().getUserProfileDto().setCity(source.getUserProfile().getCity());
-                    	map().getUserProfileDto().setCountry(source.getUserProfile().getCountry());
                     	map().setPassword(null);
                     	skip().setContacts(null);
                     	//Lista de contatos tem erro porque o arg do arrayList (dto) é uma classe diferente do arg no arrayList (model)
@@ -81,8 +79,6 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromStringToDate).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
-                    	map().setCountry(source.getCountry());
-                    	map().setCity(source.getCity());
                     	skip().setUserModel(null); //Setando profile que vem do front e jogando pro back. Por que esse código da um skip na ligação com o UserModel? porque o arg é null?
                     	
                     }
@@ -100,8 +96,6 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
-                    	map().setCity(source.getCity());
-                    	map().setCountry(source.getCountry());
                     }
                 });
         
@@ -174,15 +168,15 @@ public class ModelMapperComponent {
         				skip().getSender().setUserProfileDto(null);
         				skip().getSender().setContacts(null);
         				//set recipient
-        				map().getSender().setUserId(source.getSender().getUserId());
-        				map().getSender().setUserName(source.getSender().getUserName());
-        				map().getSender().setFirstName(source.getSender().getFirstName());
-        				map().getSender().setLastName(source.getSender().getLastName());
-        				map().getSender().setEmail(source.getSender().getEmail());
-        				skip().getSender().setPassword(null);
-        				skip().getSender().setStatus(null);
-        				skip().getSender().setUserProfileDto(null);
-        				skip().getSender().setContacts(null);
+        				map().getRecipient().setUserId(source.getRecipient().getUserId());
+        				map().getRecipient().setUserName(source.getRecipient().getUserName());
+        				map().getRecipient().setFirstName(source.getRecipient().getFirstName());
+        				map().getRecipient().setLastName(source.getRecipient().getLastName());
+        				map().getRecipient().setEmail(source.getRecipient().getEmail());
+        				skip().getRecipient().setPassword(null);
+        				skip().getRecipient().setStatus(null);
+        				skip().getRecipient().setUserProfileDto(null);
+        				skip().getRecipient().setContacts(null);
         			}
 				});
         modelMapper.addMappings(
@@ -203,15 +197,15 @@ public class ModelMapperComponent {
         				skip().getSender().setUserProfile(null);
         				skip().getSender().setContacts(null);
         				//set recipient
-        				map().getSender().setUserId(source.getSender().getUserId());
-        				map().getSender().setUserName(source.getSender().getUserName());
-        				map().getSender().setFirstName(source.getSender().getFirstName());
-        				map().getSender().setLastName(source.getSender().getLastName());
-        				map().getSender().setEmail(source.getSender().getEmail());
-        				skip().getSender().setPassword(null);
-        				skip().getSender().setStatus(null);
-        				skip().getSender().setUserProfile(null);
-        				skip().getSender().setContacts(null);
+        				map().getRecipient().setUserId(source.getRecipient().getUserId());
+        				map().getRecipient().setUserName(source.getRecipient().getUserName());
+        				map().getRecipient().setFirstName(source.getRecipient().getFirstName());
+        				map().getRecipient().setLastName(source.getRecipient().getLastName());
+        				map().getRecipient().setEmail(source.getRecipient().getEmail());
+        				skip().getRecipient().setPassword(null);
+        				skip().getRecipient().setStatus(null);
+        				skip().getRecipient().setUserProfile(null);
+        				skip().getRecipient().setContacts(null);
         			}
 				});
 	}
