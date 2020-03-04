@@ -38,6 +38,8 @@ public class ModelMapperComponent {
                     	map().setLastName(source.getLastName());
                     	when(Conditions.isNotNull()).using(ModelConverter.convertStatus).map(source.isStatus()).setStatus(null); //pedir a anderson pra ele explicar essa sentença
                     	map().getUserProfileDto().setId(source.getUserProfile().getId());
+                    	map().getUserProfileDto().setFirstName(source.getUserProfile().getFirstName());
+                    	map().getUserProfileDto().setLastName(source.getUserProfile().getLastName());
                     	map().getUserProfileDto().setAddress1(source.getUserProfile().getAddress1());
                     	map().getUserProfileDto().setAddress2(source.getUserProfile().getAddress2());
                     	map().getUserProfileDto().setCity(source.getUserProfile().getCity());
@@ -45,9 +47,9 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromDateToString).map(source.getUserProfile().getDateOfBirth()).getUserProfileDto().setDateOfBirth(null);
                     	map().getUserProfileDto().setTelephone1(source.getUserProfile().getTelephone1());
                     	map().getUserProfileDto().setTelephone2(source.getUserProfile().getTelephone2());
+                    	skip().getUserProfileDto().setUserModel(null);
                     	map().setPassword(null);
                     	skip().setContacts(null);
-                    	//Lista de contatos tem erro porque o arg do arrayList (dto) é uma classe diferente do arg no arrayList (model)
                     }
                 });
         
@@ -62,7 +64,9 @@ public class ModelMapperComponent {
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
                     	when(Conditions.isNotNull()).using(ModelConverter.convertStatusToBoolean).map(source.isStatus()).setStatus(false);
+                    	skip().getUserProfile().setUserModel(null);
                     	skip().setUserProfile(null);
+                    	skip().setContacts(null);
                     }
                 });
         
@@ -72,6 +76,8 @@ public class ModelMapperComponent {
                     @Override
                     protected void configure() {
                     	map().setId(source.getId());
+                    	map().setFirstName(source.getFirstName());
+                    	map().setLastName(source.getLastName());
                     	map().setAddress1(source.getAddress1());
                     	map().setAddress2(source.getAddress2());
                     	map().setCity(source.getCity());
@@ -96,6 +102,7 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
+                    	skip().setUserModel(null);
                     }
                 });
         
@@ -117,9 +124,8 @@ public class ModelMapperComponent {
                     	map().getUserDto().setUserId(source.getUserModel().getUserId());
                     	map().getUserDto().setUserName(source.getUserModel().getUserName());
                     	map().getUserDto().setEmail(source.getUserModel().getEmail());
-                    	skip().getUserDto().setFirstName(null);
-                    	skip().getUserDto().setLastName(null);
-                    	skip().getUserDto().setPassword(null);
+                    	skip().setUserDto(null);
+                    	
                     }
                 });
         

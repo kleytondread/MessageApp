@@ -1,6 +1,8 @@
 package com.pitang.sms.dto;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 
@@ -14,7 +16,7 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String status;
-	private ArrayList<ContactDto> contacts;
+	private List<ContactDto> contacts;
 	private UserProfileDto userProfileDto;
 	
 	public UserDto () { 
@@ -87,11 +89,11 @@ public class UserDto {
 		this.status = status;
 	}
 
-	public ArrayList<ContactDto> getContacts() {
+	public List<ContactDto> getContacts() {
 		return contacts;
 	}
 
-	public void setContacts(ArrayList<ContactDto> contacts) {
+	public void setContacts(List<ContactDto> contacts) {
 		this.contacts = contacts;
 	}
 

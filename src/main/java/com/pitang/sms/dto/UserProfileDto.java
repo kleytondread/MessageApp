@@ -17,22 +17,6 @@ public class UserProfileDto {
 	private String country;
     private Date dateOfBirth;
 	private UserDto userModel;
-	
-	public UserProfileDto(Long id, String firstName, String lastName, String telephone1, String telephone2,
-			String address1, String address2, String city, String country, Date dateOfBirth, UserDto userModel) {
-		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.telephone1 = telephone1;
-		this.telephone2 = telephone2;
-		this.address1 = address1;
-		this.address2 = address2;
-		this.city = city;
-		this.country = country;
-		this.dateOfBirth = dateOfBirth;
-		this.userModel = userModel;
-	}
 
 	public Long getId() {
 		return id;
