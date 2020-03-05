@@ -102,6 +102,7 @@ public class ModelMapperComponent {
                     	using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
+                    	map().getUserModel().setUserId(source.getUserModel().getUserId());
                     	skip().setUserModel(null);
                     }
                 });

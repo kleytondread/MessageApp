@@ -1,6 +1,5 @@
 package com.pitang.sms.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +35,11 @@ public class UserServiceImpl implements UserServiceInterface{
 			return null;
 		}
 		return userRepository.findAll();
+	}
+	
+	@Override
+	public UserModel findUserById(Long id) {
+		return userRepository.findById(id).get();
 	}
 	
 	@Override

@@ -1,0 +1,11 @@
+insert into user(user_name,first_name,last_name,email,status,password) values('anderson','Anderson','teste','anderson_felipe@hotmail.com',TRUE,'123456');
+insert into user(user_name,first_name,last_name,email,status,password) values('kleyton','Kleyton','Clementino','kleyton@hotmail.com',TRUE,'123');
+insert into user(user_name,first_name,last_name,email,status,password) values('jessica','Jessica','Rufino','jessica@hotmail.com',TRUE,'321');
+insert into user(user_name,first_name,last_name,email,status,password) values('maria','Maria','da Silva','maria.silva@hotmail.com',TRUE,'222');
+insert into user(user_name,first_name,last_name,email,status,password) values('jose','Jose','Antonio','antonio.jose@hotmail.com',TRUE,'111');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste','Teste','Teteste','teste.teste@teste.com',TRUE,'999');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste1','Teste1','Teteste1','teste1.teste1@teste.com',TRUE,'888');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste2','Teste2','Teteste2','teste2.teste2@teste.com',TRUE,'777');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste3','Teste3','Teteste3','teste3.teste3@teste.com',TRUE,'666');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste4','Teste4','Teteste4','teste4.teste4@teste.com',TRUE,'555');
+insert into user(user_name,first_name,last_name,email,status,password) values('teste5','Teste5','Teteste5','teste5.teste5@teste.com',TRUE,'333');

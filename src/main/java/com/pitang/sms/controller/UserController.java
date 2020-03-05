@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pitang.sms.dto.ContactDto;
 import com.pitang.sms.dto.UserDto;
+import com.pitang.sms.dto.UserProfileDto;
 import com.pitang.sms.mapper.ModelMapperComponent;
 import com.pitang.sms.model.Contact;
 import com.pitang.sms.model.UserModel;
+import com.pitang.sms.model.UserProfile;
 import com.pitang.sms.service.UserServiceInterface;;
 
 @RestController
@@ -30,7 +32,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<List<UserDto>> listUsers(){
+	public ResponseEntity<List<UserDto>> listUsers(){ //ok!
 		List<UserModel> users = userService.listUsers();
 		
 		if(users.size() == 0) {
@@ -46,7 +48,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){
+	public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto){ //ok!
 		
 		if(userDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -63,9 +65,9 @@ public class UserController {
 		return new ResponseEntity<>(userDto,HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/findUserName/{userName}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity <UserDto> findByUsername (@RequestBody String userName) {
+	public ResponseEntity <UserDto> findByUsername (@PathVariable String userName) { //ok!
 		
 		if(""==userName || null == userName) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -79,9 +81,9 @@ public class UserController {
 		return new ResponseEntity <>(userDto, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/findUserEmail/{email}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity <UserDto> findByEmail (@RequestBody String email) {
+	public ResponseEntity <UserDto> findByEmail (@PathVariable String email) { //ok!
 		
 		if(""==email || null == email) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -97,15 +99,16 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity<UserDto> updateUsers(@RequestBody UserDto userDto){
-		
-		if(userDto == null) {
+	public ResponseEntity<UserDto> updateUsers(@PathVariable("id") Long id, @RequestBody UserDto userDto){ //ok!
+		if(id == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
+		userDto.setUserId(id);
+		
 		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
-		
+
 		userService.updateUser(userModel);
 		
 		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
@@ -116,21 +119,27 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity <UserDto> addUserProfile (@RequestBody UserDto userDto){
+	public ResponseEntity <UserProfileDto> addUserProfile (@PathVariable("id") Long id, @RequestBody UserProfileDto userProfileDto){
 		
-		if(userDto == null) {
+		if(userProfileDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		UserModel userModel = userService.findUserById(id);
+		
+		UserProfile userProfile = ModelMapperComponent.modelMapper.map(userProfileDto, new TypeToken<UserProfile>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
+		
+		userModel.setUserProfile(userProfile);
+		//UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		//ModelMapperComponent.modelMapper.validate();
 		
 		userService.addUserProfile(userModel);
 		
-		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		userProfileDto = ModelMapperComponent.modelMapper.map(userProfile, new TypeToken<UserProfileDto>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
-		return new ResponseEntity<>(userDto, HttpStatus.OK);
+		return new ResponseEntity<>(userProfileDto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.PUT)

@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 @Table (name = "user_profile")
 public class UserProfile{
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
@@ -57,7 +57,7 @@ public class UserProfile{
     private Date dateOfBirth;
 	
 	@OneToOne (fetch = FetchType.LAZY)
-	@MapsId
+	//@MapsId
 	private UserModel user;
 
 	public UserProfile() {

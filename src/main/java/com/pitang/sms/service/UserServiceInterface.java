@@ -9,6 +9,8 @@ import com.pitang.sms.model.UserModel;
 public interface UserServiceInterface {
 	
 	public List<UserModel> listUsers();
+	
+	public UserModel findUserById (Long id);
 
 	public UserModel findUserByUsername(String userName);
 	

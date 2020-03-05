@@ -15,7 +15,7 @@ public class UserProfileDto {
 	private String address2;
 	private String city;
 	private String country;
-    private Date dateOfBirth;
+    private String dateOfBirth;
 	private UserDto userModel;
 
 	public Long getId() {
@@ -90,11 +90,11 @@ public class UserProfileDto {
 		this.country = country;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
