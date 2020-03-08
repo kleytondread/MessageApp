@@ -119,7 +119,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity <UserProfileDto> addUserProfile (@PathVariable("id") Long id, @RequestBody UserProfileDto userProfileDto){
+	public ResponseEntity <UserProfileDto> addUserProfile (@PathVariable("id") Long id, @RequestBody UserProfileDto userProfileDto){ //ok!
 		
 		if(userProfileDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -130,6 +130,7 @@ public class UserController {
 		UserProfile userProfile = ModelMapperComponent.modelMapper.map(userProfileDto, new TypeToken<UserProfile>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
+		userProfile.setUserModel(userModel);
 		userModel.setUserProfile(userProfile);
 		//UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
 		//ModelMapperComponent.modelMapper.validate();
@@ -144,21 +145,26 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}/profile", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity <UserDto> updateUserProfile (@RequestBody UserDto userDto){
+	public ResponseEntity <UserProfileDto> updateUserProfile (@PathVariable("id") Long id, @RequestBody UserProfileDto userProfileDto){ //ok!
 		
-		if(userDto == null) {
+		if(userProfileDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
-		UserModel userModel = ModelMapperComponent.modelMapper.map(userDto, new TypeToken<UserModel>() {}.getType());
+		UserProfile userProfile = ModelMapperComponent.modelMapper.map(userProfileDto, new TypeToken<UserProfile>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
+		
+		UserModel userModel = userService.findUserById(id);
+		if(userModel.getUserProfile() !=null) {
+			userModel.setUserProfile(userProfile);
+		}
 		
 		userService.updateUserProfile(userModel);
 		
-		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		userProfileDto = ModelMapperComponent.modelMapper.map(userProfile, new TypeToken<UserProfileDto>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
-		return new ResponseEntity <> (userDto, HttpStatus.OK);
+		return new ResponseEntity <> (userProfileDto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.POST)
@@ -201,7 +207,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
-	public ResponseEntity<UserDto> deleteUser(@PathVariable("id") Long id){
+	public ResponseEntity<UserDto> deleteUser(@PathVariable("id") Long id){ //ok!
 		
 		userService.deleteUser(id);
 		

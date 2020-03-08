@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserServiceInterface{
 	public void updateUserProfile (UserModel user) {
 		UserModel userDB = userRepository.getOne(user.getUserId());
 		if(user.getUserProfile()==null) {
-			throw new ExceptionBadRequest("Perfil de usuário não informado.");
+			throw new ExceptionBadRequest("Perfil de usuário não existe.");
 		}
 		else if (user.getUserProfile() !=null && user.getUserProfile().getId() !=null) {
 			userDB.setUserProfile(user.getUserProfile());
