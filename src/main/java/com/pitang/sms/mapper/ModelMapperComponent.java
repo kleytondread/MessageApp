@@ -36,6 +36,7 @@ public class ModelMapperComponent {
                     	map().setUserName(source.getUserName());
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
+                    	when(Conditions.isNotNull()).map().setImage(source.getImage());
                     	when(Conditions.isNotNull()).using(ModelConverter.convertStatus).map(source.isStatus()).setStatus(null); //pedir a anderson pra ele explicar essa sentença
                     	map().getUserProfileDto().setId(source.getUserProfile().getId());
                     	map().getUserProfileDto().setFirstName(source.getUserProfile().getFirstName());
@@ -63,6 +64,7 @@ public class ModelMapperComponent {
                     	map().setUserName(source.getUserName());
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
+                    	when(Conditions.isNotNull()).map().setImage(source.getImage());
                     	when(Conditions.isNotNull()).using(ModelConverter.convertStatusToBoolean).map(source.isStatus()).setStatus(false);
                     	skip().getUserProfile().setUserModel(null);
                     	skip().setUserProfile(null);
@@ -104,6 +106,7 @@ public class ModelMapperComponent {
                     	map().setTelephone2(source.getTelephone2());
                     	map().getUserModel().setUserId(source.getUserModel().getUserId());
                     	skip().setUserModel(null);
+                    	
                     }
                 });
         
@@ -126,6 +129,7 @@ public class ModelMapperComponent {
                     	map().getUserDto().setUserName(source.getUserModel().getUserName());
                     	map().getUserDto().setEmail(source.getUserModel().getEmail());
                     	skip().setUserDto(null);
+                    	skip().getUserDto().setImage(null);
                     	
                     }
                 });
@@ -154,6 +158,7 @@ public class ModelMapperComponent {
                     	skip().getUserModel().setContacts(null);
                     	skip().getUserModel().setStatus(false);
                     	skip().getUserModel().setUserProfile(null);
+                    	skip().getUserModel().setImage(null);
                     }
                 });
         

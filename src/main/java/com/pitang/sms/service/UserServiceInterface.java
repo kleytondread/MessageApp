@@ -28,6 +28,8 @@ public interface UserServiceInterface {
 
 	public void addContact(Contact contact, Long id);
 
-	void updateContact(Contact contact);
+	public void updateContact(Contact contact);
+
+	public void addProfilePicture(UserModel userModel);
 }
 

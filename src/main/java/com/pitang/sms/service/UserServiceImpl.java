@@ -156,6 +156,17 @@ public class UserServiceImpl implements UserServiceInterface{
 			throw new ExceptionBadRequest("O contato não foi informado.");
 		}
 	}
+	
+	@Override
+	public void addProfilePicture (UserModel userModel) {
+		if(userModel == null) {
+			throw new ExceptionBadRequest("Usuário inválido ou não existe.");
+		}
+		
+		else {
+			userRepository.save(userModel);
+		}
+	}
 
 	@Override
  	public void deleteUser(Long id) {
@@ -177,7 +188,8 @@ public class UserServiceImpl implements UserServiceInterface{
 				profileUser.get().setTelephone1(user.getUserProfile().getTelephone1());
 				profileUser.get().setTelephone2(user.getUserProfile().getTelephone2());
 				profileUser.get().setAddress1(user.getUserProfile().getAddress1());
-				profileUser.get().setAddress2(user.getUserProfile().getAddress2());
+				profileUser.{get().setAddress2(user.getUserProfile().getAddress2());
+				
 				profileUser.get().setCity(user.getUserProfile().getCity());
 				profileUser.get().setCountry(user.getUserProfile().getCountry());
 				profileUser.get().setDateOfBirth(user.getUserProfile().getDateOfBirth());

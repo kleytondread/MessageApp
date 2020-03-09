@@ -1,5 +1,6 @@
 package com.pitang.sms.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.modelmapper.TypeToken;
@@ -9,12 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pitang.sms.dto.ContactDto;
 import com.pitang.sms.dto.UserDto;
 import com.pitang.sms.dto.UserProfileDto;
+import com.pitang.sms.exceptions.ExceptionBadRequest;
 import com.pitang.sms.mapper.ModelMapperComponent;
 import com.pitang.sms.model.Contact;
 import com.pitang.sms.model.UserModel;
@@ -112,6 +116,26 @@ public class UserController {
 		userService.updateUser(userModel);
 		
 		userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
+		ModelMapperComponent.modelMapper.validate();
+		
+		return new ResponseEntity<>(userDto,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/profileimage", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<UserDto> addProfileImage(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file)  {
+		
+		UserModel userModel = userService.findUserById(id);
+		
+		try {
+			userModel.setImage(file.getBytes());
+		} catch (IOException e) {
+			throw new ExceptionBadRequest ("Não foi possível recuperar os dados da imagem!");
+		}
+		
+		userService.addProfilePicture(userModel);
+		
+		UserDto userDto = ModelMapperComponent.modelMapper.map(userModel, new TypeToken<UserDto>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
 		return new ResponseEntity<>(userDto,HttpStatus.OK);

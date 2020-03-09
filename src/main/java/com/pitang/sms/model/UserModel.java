@@ -1,6 +1,5 @@
 package com.pitang.sms.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -53,6 +53,10 @@ public class UserModel{
 	
 	@NotNull
 	private Boolean status;
+	
+    @Column(name = "image")
+    @Lob
+    private byte[] image;
 	
 	@OneToMany (fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL,
@@ -152,6 +156,12 @@ public class UserModel{
 
 	public void setUserProfile(UserProfile userProfile) {
 		this.userProfile = userProfile;
+	}
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 	
 	

@@ -1,6 +1,5 @@
 package com.pitang.sms.dto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,6 +15,7 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String status;
+	private byte[] image;
 	private List<ContactDto> contacts;
 	private UserProfileDto userProfileDto;
 	
@@ -103,5 +103,15 @@ public class UserDto {
 
 	public void setUserProfileDto(UserProfileDto userProfile) {
 		this.userProfileDto = userProfile;
+	}
+
+
+	public byte[] getImage() {
+		return image;
+	}
+
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 }
