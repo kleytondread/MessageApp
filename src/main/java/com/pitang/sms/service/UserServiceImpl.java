@@ -138,13 +138,28 @@ public class UserServiceImpl implements UserServiceInterface{
 		if (id == null) {
 			throw new ExceptionBadRequest("ID do usuário não informado.");
 		}
-		
-		UserModel user = userRepository.findById(id).get();
-		checkIntegrity(user);
-		if(contact !=null)
-			user.addSingleContact(contact);
-		else
-			throw new ExceptionBadRequest("Contato não informado.");
+		if (contact == null) {
+			throw new ExceptionBadRequest("Contato não informado.");	
+		}
+		else {
+			/*Optional<Contact> dbContact = contactRepository.findById(contact.getUserModel().getUserId());
+			if(dbContact.isPresent()) {
+				throw new  ExceptionConflict("");
+			}*/
+			UserModel user = userRepository.findById(id).get();
+			
+			/*Contact dbContact = contactRepository.findByUserNameUserUserId(contact.getUserName(),user.getUserId());
+			if(dbContact !=null) {
+				throw new  ExceptionConflict("Contato já existe na sua lista.");
+			}else {*/
+				user.addSingleContact(contact);
+				contact.setUserModel(user);
+				contactRepository.save(contact);
+			//}
+		}
+			//Long contactId = userRepository.findByUserName(contact.getUserName()).getUserId();
+			//contact.setId(contactId);
+			//contactRepository.save(contact);
 	}
 	
 	@Override

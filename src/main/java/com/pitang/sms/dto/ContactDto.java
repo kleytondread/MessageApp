@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ContactDto {
 	private Long id;
+	private String userName;
 	private String firstName;
 	private String lastName;
 	private String telephone1;
@@ -14,7 +15,6 @@ public class ContactDto {
 	private String address2;
 	private String city;
 	private String country;
-    private Date dateOfBirth;
 	private UserDto user;
 	
 	
@@ -94,19 +94,19 @@ public class ContactDto {
 		this.country = country;
 	}
 
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
 	public UserDto getUserDto() {
 		return user;
 	}
 
 	public void setUserDto(UserDto user) {
 		this.user = user;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

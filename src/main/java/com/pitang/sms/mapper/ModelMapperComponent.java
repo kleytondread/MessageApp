@@ -115,6 +115,7 @@ public class ModelMapperComponent {
                     @Override
                     protected void configure() {
                     	map().setId(source.getId());
+                    	map().setUserName(source.getUserName());
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
                     	map().setTelephone1(source.getTelephone1());
@@ -123,7 +124,7 @@ public class ModelMapperComponent {
                     	map().setAddress2(source.getAddress2());
                     	map().setCity(source.getCity());
                     	map().setCountry(source.getCountry());
-                    	using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
+                    	//using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	//setting User who possesses the contact
                     	map().getUserDto().setUserId(source.getUserModel().getUserId());
                     	map().getUserDto().setUserName(source.getUserModel().getUserName());
@@ -139,6 +140,7 @@ public class ModelMapperComponent {
                     @Override
                     protected void configure() {
                     	map().setId(source.getId());
+                    	map().setUserName(source.getUserName());
                     	map().setFirstName(source.getFirstName());
                     	map().setLastName(source.getLastName());
                     	map().setTelephone1(source.getTelephone1());
@@ -147,7 +149,7 @@ public class ModelMapperComponent {
                     	map().setAddress2(source.getAddress2());
                     	map().setCity(source.getCity());
                     	map().setCountry(source.getCountry());
-                    	using(ModelConverter.fromStringToDate).map(source.getDateOfBirth()).setDateOfBirth(null);
+                    	//using(ModelConverter.fromStringToDate).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	//setting User who possesses the contact
                     	map().getUserModel().setUserId(source.getUserDto().getUserId());
                     	map().getUserModel().setUserName(source.getUserDto().getUserName());
