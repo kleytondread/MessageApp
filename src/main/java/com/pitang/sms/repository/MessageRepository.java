@@ -10,5 +10,6 @@ import com.pitang.sms.model.UserModel;
 public interface MessageRepository extends JpaRepository <Message, Long> {
 	List<Message> findBySender (UserModel sender);
 	List<Message> findByRecipient (UserModel recipient);
+	List<Message> findBySenderRecipient(UserModel sender, UserModel recipient);
 
 }

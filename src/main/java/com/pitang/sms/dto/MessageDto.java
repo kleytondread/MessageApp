@@ -10,6 +10,8 @@ public class MessageDto {
 	private UserDto sender;
 	private UserDto recipient;
 	private String text;
+	private Boolean deletedStatusSender;
+	private Boolean deletedStatusRecipient;
 	private Date messageDate;
 	
 	
@@ -61,6 +63,26 @@ public class MessageDto {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public Boolean getDeletedStatusSender() {
+		return deletedStatusSender;
+	}
+
+
+	public void setDeletedStatusSender(Boolean deletedStatusSender) {
+		this.deletedStatusSender = deletedStatusSender;
+	}
+
+
+	public Boolean getDeletedStatusRecipient() {
+		return deletedStatusRecipient;
+	}
+
+
+	public void setDeletedStatusRecipient(Boolean deletedStatusRecipient) {
+		this.deletedStatusRecipient = deletedStatusRecipient;
+	}
+
 
 
 	public Date getMessageDate() {

@@ -28,6 +28,14 @@ public class Message {
 	private String text;
 	
 	@NotNull
+	@Column (name="status_sender")
+	private Boolean deletedStatusSender;
+	
+	@NotNull
+	@Column (name="status_recipient")
+	private Boolean deletedStatusRecipient;
+	
+	@NotNull
     @Temporal(TemporalType.DATE)
 	@Column(name = "message_Date")
 	private Date messageDate;
@@ -61,6 +69,23 @@ public class Message {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	public Boolean getDeletedStatusSender() {
+		return deletedStatusSender;
+	}
+
+	public void setDeletedStatusSender(Boolean deletedStatusSender) {
+		this.deletedStatusSender = deletedStatusSender;
+	}
+
+	public Boolean getDeletedStatusRecipient() {
+		return deletedStatusRecipient;
+	}
+
+	public void setDeletedStatusRecipient(Boolean deletedStatusRecipient) {
+		this.deletedStatusRecipient = deletedStatusRecipient;
+	}
+
 	public Date getMessageDate() {
 		return messageDate;
 	}
