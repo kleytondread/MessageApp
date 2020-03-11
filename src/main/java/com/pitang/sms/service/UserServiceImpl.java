@@ -29,6 +29,66 @@ public class UserServiceImpl implements UserServiceInterface{
 	@Autowired
 	private ContactRepository contactRepository;
 	
+	
+	
+	//Functions for utilities
+	
+	private void checkIntegrity(UserModel user) {
+		checkMandatoryFields(user);
+		checkRelations(user);
+	}
+	
+	private void checkMandatoryFields(UserModel user) {
+		if(user == null) {
+			throw new ExceptionBadRequest("Usuário não pode ser nulo!");
+		}
+		if(StringUtils.isEmpty(user.getEmail())) {
+			throw new ExceptionBadRequest("Necessário informar o Email do usuário.");
+		}
+		if(StringUtils.isEmpty(user.getFirstName())) {
+			throw new ExceptionBadRequest("Necessário informar o Primeiro Nome do usuário.");
+		}
+		if(StringUtils.isEmpty(user.getPassword())) {
+			throw new ExceptionBadRequest("Necessário informar a Senha do usuário.");
+		}
+		if(StringUtils.isEmpty(user.getUserName())) {
+			throw new ExceptionBadRequest("Necessário informar o Nome do usuário.");
+		}
+	}
+	
+	private void validateUser(UserModel user) {
+		if(!StringUtils.isEmpty(user.getUserName()) && userRepository.findByUserName(user.getUserName()) != null) {
+			throw new ExceptionConflict("Nome de usuário informado já existe!");
+		}
+		if(!StringUtils.isEmpty(user.getEmail()) && userRepository.findByEmail(user.getEmail()) != null) {
+			throw new ExceptionConflict("Email informado já existe!");
+		}
+	}
+	
+	private void checkRelations(UserModel user) {
+		if(user.getUserProfile() != null && user.getUserProfile().getId() != null &&
+				userProfileRepository.findById(user.getUserProfile().getId()) == null) {
+			throw new ExceptionBadRequest("Perfil do usuário não encontrado.");
+		}else if(user.getUserProfile() != null && user.getUserProfile().getId() == null) {
+			user.setUserProfile(null);
+		}
+	}
+	
+	private boolean checkIfContactIsPresent (UserModel user, Contact contact) {
+		
+		for(Contact dbContact : user.getContacts()) {
+	        if(dbContact.getUserName().equals(contact.getUserName())) {
+	        	return true;
+	        }
+	    }
+		
+		return false;
+	}
+	
+	
+	//User methods
+	
+	
 	@Override
 	public List<UserModel> listUsers() {
 		if(userRepository.findAll().size() == 0) {
@@ -69,45 +129,17 @@ public class UserServiceImpl implements UserServiceInterface{
 		return userRepository.save(user);
 	}
 	
-	private void checkIntegrity(UserModel user) {
-		checkMandatoryFields(user);
-		checkRelations(user);
-	}
-	private void checkMandatoryFields(UserModel user) {
-		if(user == null) {
-			throw new ExceptionBadRequest("Usuário não pode ser nulo!");
-		}
-		if(StringUtils.isEmpty(user.getEmail())) {
-			throw new ExceptionBadRequest("Necessário informar o Email do usuário.");
-		}
-		if(StringUtils.isEmpty(user.getFirstName())) {
-			throw new ExceptionBadRequest("Necessário informar o Primeiro Nome do usuário.");
-		}
-		if(StringUtils.isEmpty(user.getPassword())) {
-			throw new ExceptionBadRequest("Necessário informar a Senha do usuário.");
-		}
-		if(StringUtils.isEmpty(user.getUserName())) {
-			throw new ExceptionBadRequest("Necessário informar o Nome do usuário.");
+	@Override
+ 	public void deleteUser(Long id) {
+		Optional<UserModel> user = userRepository.findById(id);
+		if(user.isPresent()) {
+			userRepository.deleteById(id);
 		}
 	}
 	
-	private void validateUser(UserModel user) {
-		if(!StringUtils.isEmpty(user.getUserName()) && userRepository.findByUserName(user.getUserName()) != null) {
-			throw new ExceptionConflict("Nome de usuário informado já existe!");
-		}
-		if(!StringUtils.isEmpty(user.getEmail()) && userRepository.findByEmail(user.getEmail()) != null) {
-			throw new ExceptionConflict("Email informado já existe!");
-		}
-	}
 	
-	private void checkRelations(UserModel user) {
-		if(user.getUserProfile() != null && user.getUserProfile().getId() != null &&
-				userProfileRepository.findById(user.getUserProfile().getId()) == null) {
-			throw new ExceptionBadRequest("Perfil do usuário não encontrado.");
-		}else if(user.getUserProfile() != null && user.getUserProfile().getId() == null) {
-			user.setUserProfile(null);
-		}
-	}
+	//UserProfile methods
+	
 	
 	@Override
 	public void addUserProfile(UserModel user) {
@@ -133,6 +165,8 @@ public class UserServiceImpl implements UserServiceInterface{
 
 	}
 	
+	//Contact methods
+	
 	@Override
 	public void addContact (Contact contact, Long id) {
 		if (id == null) {
@@ -148,14 +182,14 @@ public class UserServiceImpl implements UserServiceInterface{
 			}*/
 			UserModel user = userRepository.findById(id).get();
 			
-			/*Contact dbContact = contactRepository.findByUserNameUserUserId(contact.getUserName(),user.getUserId());
-			if(dbContact !=null) {
+			//Contact dbContact = contactRepository.findByUserNameUser(contact.getUserName(),user.getUserId());
+			if(checkIfContactIsPresent(user, contact)==true) {
 				throw new  ExceptionConflict("Contato já existe na sua lista.");
-			}else {*/
+			}else {
 				user.addSingleContact(contact);
 				contact.setUserModel(user);
 				contactRepository.save(contact);
-			//}
+			}
 		}
 			//Long contactId = userRepository.findByUserName(contact.getUserName()).getUserId();
 			//contact.setId(contactId);
@@ -173,6 +207,14 @@ public class UserServiceImpl implements UserServiceInterface{
 	}
 	
 	@Override
+ 	public void deleteContact(Long id) {
+		Optional<Contact> contact = contactRepository.findById(id);
+		if(contact.isPresent()) {
+			contactRepository.deleteById(id);
+		}
+	}
+	
+	@Override
 	public void addProfilePicture (UserModel userModel) {
 		if(userModel == null) {
 			throw new ExceptionBadRequest("Usuário inválido ou não existe.");
@@ -180,14 +222,6 @@ public class UserServiceImpl implements UserServiceInterface{
 		
 		else {
 			userRepository.save(userModel);
-		}
-	}
-
-	@Override
- 	public void deleteUser(Long id) {
-		Optional<UserModel> user = userRepository.findById(id);
-		if(user.isPresent()) {
-			userRepository.deleteById(id);
 		}
 	}
 

@@ -6,6 +6,6 @@ import com.pitang.sms.model.Contact;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 	Contact findByUserName (String userName);
-	//Contact findByUserNameUserUserId (String userName, Long id);
+	//Contact findByUserNameUser(String userName, Long id);
 
 }

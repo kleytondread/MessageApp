@@ -1,6 +1,5 @@
 package com.pitang.sms.dto;
 
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,7 +14,7 @@ public class UserProfileDto {
 	private String address2;
 	private String city;
 	private String country;
-    private String dateOfBirth;
+    //private String dateOfBirth;
 	private UserDto userModel;
 
 	public Long getId() {
@@ -88,14 +87,6 @@ public class UserProfileDto {
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
 	}
 
 	public UserDto getUserModel() {

@@ -31,5 +31,7 @@ public interface UserServiceInterface {
 	public void updateContact(Contact contact);
 
 	public void addProfilePicture(UserModel userModel);
+
+	void deleteContact(Long id);
 }
 

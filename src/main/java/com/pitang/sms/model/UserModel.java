@@ -149,6 +149,14 @@ public class UserModel{
 	public void addSingleContact(Contact contact) {
 		contacts.add(contact);
 	}
+	
+	public void deleteContact (String userName) {
+		for(Contact listContact : contacts) {
+	        if(listContact.getUserName().equals(userName)) {
+	        	contacts.remove(listContact);
+	        }
+	    }
+	}
 
 	public UserProfile getUserProfile() {
 		return userProfile;

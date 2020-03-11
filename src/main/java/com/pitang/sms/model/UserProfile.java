@@ -1,20 +1,13 @@
 package com.pitang.sms.model;
 
-import java.util.Date;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -51,10 +44,6 @@ public class UserProfile{
 	
 	@Size (max = 65)
 	private String country;
-	
-	@Temporal(TemporalType.DATE)
-    @Column(name = "date_of_bith")
-    private Date dateOfBirth;
 	
 	@OneToOne (fetch = FetchType.LAZY)
 	//@MapsId
@@ -134,14 +123,6 @@ public class UserProfile{
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
 	}
 
 	public UserModel getUserModel() {

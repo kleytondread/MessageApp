@@ -1,0 +1,36 @@
+{
+        "userName": "jessica",
+        "firstName": "Jessica",
+        "lastName": "Rufino",
+        "telephone1": "99-99999.9999",
+        "address1": "3, King Street",
+        "city": "Recife",
+        "country": "Brasil"
+    },
+    {
+        "userName": "kleyton",
+        "firstName": "Kleyton",
+        "lastName": "Silva",
+        "telephone1": "99-99999.9999",
+        "address1": "3, King Street",
+        "city": "Recife",
+        "country": "Brasil"
+    },
+    {
+        "userName": "teste",
+        "firstName": "Teste",
+        "lastName": "Teteste",
+        "telephone1": "99-99999.9999",
+        "address1": "3, King Street",
+        "city": "Recife",
+        "country": "Brasil"
+    }
+{
+	"userName": "anderson",
+    "firstName": "Anderson",
+    "lastName": "Felipe",
+    "telephone1": "99-99999.9999",
+    "address1": "3, King Street",
+    "city": "Recife",
+    "country": "Brasil"
+}

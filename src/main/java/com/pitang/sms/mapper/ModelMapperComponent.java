@@ -45,7 +45,7 @@ public class ModelMapperComponent {
                     	map().getUserProfileDto().setAddress2(source.getUserProfile().getAddress2());
                     	map().getUserProfileDto().setCity(source.getUserProfile().getCity());
                     	map().getUserProfileDto().setCountry(source.getUserProfile().getCountry());
-                    	using(ModelConverter.fromDateToString).map(source.getUserProfile().getDateOfBirth()).getUserProfileDto().setDateOfBirth(null);
+                    	//using(ModelConverter.fromDateToString).map(source.getUserProfile().getDateOfBirth()).getUserProfileDto().setDateOfBirth(null);
                     	map().getUserProfileDto().setTelephone1(source.getUserProfile().getTelephone1());
                     	map().getUserProfileDto().setTelephone2(source.getUserProfile().getTelephone2());
                     	skip().getUserProfileDto().setUserModel(null);
@@ -84,7 +84,7 @@ public class ModelMapperComponent {
                     	map().setAddress2(source.getAddress2());
                     	map().setCity(source.getCity());
                     	map().setCountry(source.getCountry());
-                    	using(ModelConverter.fromStringToDate).map(source.getDateOfBirth()).setDateOfBirth(null);
+                    	//using(ModelConverter.fromStringToDate).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
                     	skip().setUserModel(null); //Setando profile que vem do front e jogando pro back. Por que esse código da um skip na ligação com o UserModel? porque o arg é null?
@@ -101,7 +101,7 @@ public class ModelMapperComponent {
                     	map().setAddress2(source.getAddress2());
                     	map().setCity(source.getCity());
                     	map().setCountry(source.getCountry());
-                    	using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
+                    	//using(ModelConverter.fromDateToString).map(source.getDateOfBirth()).setDateOfBirth(null);
                     	map().setTelephone1(source.getTelephone1());
                     	map().setTelephone2(source.getTelephone2());
                     	map().getUserModel().setUserId(source.getUserModel().getUserId());

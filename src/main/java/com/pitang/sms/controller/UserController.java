@@ -212,12 +212,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.PUT)
 	@ResponseBody
-	public ResponseEntity <ContactDto> updateContact (@RequestBody ContactDto contactDto){
+	public ResponseEntity <ContactDto> updateContact (@PathVariable("id") Long id, @RequestBody ContactDto contactDto){
 		
 		if(contactDto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
 		Contact contact = ModelMapperComponent.modelMapper.map(contactDto, new TypeToken<Contact>() {}.getType());
 		ModelMapperComponent.modelMapper.validate();
 		
@@ -227,6 +226,38 @@ public class UserController {
 		ModelMapperComponent.modelMapper.validate();
 		
 		return new ResponseEntity<> (contactDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity <ContactDto> deleteContact (@PathVariable("id") Long id, @RequestBody ContactDto contactDto){
+		
+		if(contactDto.getId() == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		UserModel userModel = userService.findUserById(id);
+		userModel.deleteContact(contactDto.getUserName());
+		userService.deleteContact(contactDto.getId());
+		
+		return new ResponseEntity<> (contactDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/{id}/contact", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity <List<ContactDto>> listContacts (@PathVariable("id") Long id){
+		
+		UserModel userModel = userService.findUserById(id);
+		
+		List <Contact> contacts = userModel.getContacts();
+		if(contacts.size() == 0) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		List<ContactDto> contactsDto = ModelMapperComponent.modelMapper.map(contacts, new TypeToken<List<ContactDto>>() {}.getType());
+		
+		ModelMapperComponent.modelMapper.validate();
+		return new ResponseEntity<> (contactsDto, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
